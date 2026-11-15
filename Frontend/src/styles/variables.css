@@ -1,0 +1,12 @@
+:root {
+  --color-obsidian: rgb(17, 12, 6);
+  --color-umber: rgb(74, 58, 37);
+  --color-olive: rgb(122, 112, 78);
+  --color-sage: rgb(147, 180, 142);
+  --color-mint: rgb(196, 232, 219);
+
+  /* Derived translucencies from the 5-color palette */
+  --grid-line: rgba(196, 232, 219, 0.16);
+  --grid-cross: rgba(196, 232, 219, 0.55);
+  --watermark-color: rgba(147, 180, 142, 0.14);
+}

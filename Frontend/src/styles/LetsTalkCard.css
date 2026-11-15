@@ -1,0 +1,105 @@
+.lets-talk-card {
+  position: absolute;
+  bottom: 2.2%;
+  left: 68.7%;
+  width: clamp(235px, 19.2vw, 290px);
+  height: 84px;
+  background-color: var(--color-obsidian);
+  border: 1px solid rgba(147, 180, 142, 0.28);
+  padding: 9px;
+  display: flex;
+  align-items: stretch;
+  gap: 11px;
+  text-decoration: none;
+  z-index: 5;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.lets-talk-card:hover {
+  border-color: var(--color-sage);
+  transform: translateY(-2px);
+}
+
+/* Intentionally blank placeholder where portrait used to sit */
+.lets-talk-avatar-blank {
+  width: 64px;
+  height: 100%;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, var(--color-umber) 0%, rgba(122, 112, 78, 0.45) 100%);
+  border: 1px solid rgba(196, 232, 219, 0.16);
+}
+
+.lets-talk-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.lets-talk-eyebrow {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--color-sage);
+  letter-spacing: 0.02em;
+}
+
+.lets-talk-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lets-talk-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-mint);
+  line-height: 1.15;
+}
+
+.lets-talk-role {
+  font-size: 9.5px;
+  font-weight: 400;
+  color: var(--color-olive);
+  line-height: 1.2;
+}
+
+.lets-talk-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.lets-talk-spark {
+  font-size: 10px;
+  color: var(--color-sage);
+  line-height: 1;
+}
+
+.lets-talk-arrow-btn {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-mint);
+  color: var(--color-obsidian);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.lets-talk-card:hover .lets-talk-arrow-btn {
+  background-color: var(--color-sage);
+}
+
+@media (max-width: 900px) {
+  .lets-talk-card {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 1.5rem;
+  }
+}

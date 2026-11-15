@@ -1,0 +1,173 @@
+/* Keep certification cards directly on the About page's grid background. */
+.cert-panel {
+  padding: 0;
+  width: 100%;
+}
+
+.cert-heading {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-sage);
+  margin-bottom: 0.9rem;
+}
+
+.cert-empty {
+  font-size: 13px;
+  color: var(--color-sage);
+}
+
+.cert-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-mint);
+  background-color: rgba(17, 12, 6, 0.42);
+  border: 1px solid var(--grid-cross);
+  border-radius: 10px;
+  box-shadow: 0 16px 38px rgba(17, 12, 6, 0.32);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cert-card:hover {
+  border-color: var(--color-mint);
+  transform: translateY(-3px);
+}
+
+.cert-card.is-editing {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 2px;
+}
+
+.cert-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.cert-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-olive);
+  background: linear-gradient(
+    180deg,
+    var(--color-sage) 0%,
+    var(--color-olive) 76%,
+    var(--color-umber) 76%,
+    var(--color-obsidian) 100%
+  );
+}
+
+.cert-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.9rem 0.4rem;
+}
+
+.cert-title {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.cert-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-sage);
+}
+
+.cert-card-actions,
+.cert-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.9rem 0.9rem;
+}
+
+.cert-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--grid-line);
+}
+
+.cert-form-actions {
+  grid-column: 1 / -1;
+  padding: 0;
+}
+
+.cert-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-sage);
+}
+
+.cert-field input {
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-mint);
+  background-color: rgba(17, 12, 6, 0.75);
+  border: 1px solid var(--grid-line);
+  padding: 0.55rem 0.65rem;
+}
+
+.cert-field input:focus {
+  outline: 1px solid var(--color-sage);
+  outline-offset: 0;
+}
+
+.cert-btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0.5rem 0.85rem;
+  background: transparent;
+  color: var(--color-mint);
+  border: 1px solid var(--color-obsidian);
+  cursor: pointer;
+}
+
+.cert-btn:hover {
+  background-color: rgba(196, 232, 219, 0.12);
+}
+
+.cert-btn-primary {
+  background-color: var(--color-mint);
+  color: var(--color-obsidian);
+  border-color: var(--color-mint);
+}
+
+.cert-card .cert-btn,
+.cert-form .cert-btn {
+  border-color: var(--grid-cross);
+}
+
+.cert-btn-danger {
+  color: #e8a598;
+  border-color: #e8a598;
+}
+
+@media (max-width: 900px) {
+  .cert-form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,207 @@
+/* Same background as the hero and My Projects pages. */
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(147, 180, 142, 0.18) 0%,
+      rgba(122, 112, 78, 0.3) 40%,
+      rgba(74, 58, 37, 0.7) 75%,
+      rgb(17, 12, 6) 100%
+    ),
+    linear-gradient(125deg, rgb(74, 58, 37) 0%, rgb(122, 112, 78) 48%, rgb(74, 58, 37) 100%);
+  overflow: hidden;
+}
+
+/* Above the grid overlay (z-index 2). */
+.about-content {
+  position: relative;
+  z-index: 3;
+  max-width: 900px;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 6vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.about-back {
+  align-self: flex-start;
+  color: var(--color-sage);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.about-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+}
+
+.about-title {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--color-mint);
+}
+
+.about-text {
+  margin-top: 0.8rem;
+  max-width: 60ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-mint);
+}
+
+.about-panel {
+  background-color: rgba(17, 12, 6, 0.6);
+  border: 1px solid var(--grid-cross);
+  padding: 1rem 1.25rem;
+}
+
+.about-panel-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-sage);
+  margin-bottom: 0.6rem;
+}
+
+.about-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skills-editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skills-editor-btn {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0.4rem 0.7rem;
+  color: var(--color-mint);
+  background: transparent;
+  border: 1px solid var(--grid-cross);
+  cursor: pointer;
+}
+
+.skills-editor-btn:hover {
+  background-color: rgba(196, 232, 219, 0.12);
+}
+
+/* Code style: monospace, obsidian background, mint text. */
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-mint);
+  background-color: var(--color-obsidian);
+  border-left: 2px solid var(--color-olive);
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.skills-editor {
+  display: block;
+  width: 100%;
+  min-height: 12rem;
+  resize: vertical;
+}
+
+.skills-editor-error {
+  margin-top: 0.6rem;
+  color: var(--color-mint);
+  font-size: 12px;
+}
+
+/* Filter buttons */
+.skill-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill-filter-btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  color: var(--color-mint);
+  border: 1px solid var(--color-mint);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.skill-filter-btn:hover {
+  background-color: rgba(196, 232, 219, 0.12);
+}
+
+.skill-filter-btn.is-active {
+  background-color: var(--color-mint);
+  color: var(--color-obsidian);
+}
+
+/* Container the matched skills fall into. */
+.skill-drop-zone {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-height: 3rem;
+  margin-top: 0.9rem;
+}
+
+.skill-chip {
+  font-size: 13.5px;
+  font-weight: 700;
+  align-self: center;
+  padding: 10px 12px;
+  background-color: var(--color-mint);
+  color: var(--color-obsidian);
+  border-radius: 5px;
+  /* Starts above and transparent, then falls into place. */
+  animation: skill-fall 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes skill-fall {
+  from {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-chip {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-content {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .skill-filter-btn {
+    flex: 1 1 calc(50% - 0.6rem);
+    text-align: center;
+  }
+}

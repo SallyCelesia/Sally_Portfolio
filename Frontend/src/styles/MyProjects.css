@@ -1,0 +1,288 @@
+/* Page background matches the hero: the same radial + diagonal gradient. */
+.projects-page {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(147, 180, 142, 0.18) 0%,
+      rgba(122, 112, 78, 0.3) 40%,
+      rgba(74, 58, 37, 0.7) 75%,
+      rgb(17, 12, 6) 100%
+    ),
+    linear-gradient(125deg, rgb(74, 58, 37) 0%, rgb(122, 112, 78) 48%, rgb(74, 58, 37) 100%);
+  overflow: hidden;
+}
+
+/* Sits above the grid overlay (z-index 2) so text stays readable. */
+.projects-content {
+  position: relative;
+  z-index: 3;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 6vw, 6rem);
+}
+
+.projects-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem 2rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.projects-back {
+  color: var(--color-sage);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.projects-title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--color-mint);
+}
+
+.projects-count {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--color-sage);
+}
+
+/* Form on the left, list on the right; stacks on small screens. */
+.projects-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.projects-form-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  background-color: rgba(70, 49, 25, 0.6);
+  border: 1px solid var(--grid-cross);
+  border-radius: 8px;
+}
+
+.project-form-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--color-mint);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-sage);
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-mint);
+  background-color: rgba(17, 12, 6, 0.75);
+  border: 1px solid var(--grid-line);
+  border-radius: 5px;
+  padding: 0.55rem 0.65rem;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: 1px solid var(--color-sage);
+  outline-offset: 0;
+}
+
+.project-form-actions,
+.project-card-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.project-form-actions .btn{
+  border-radius: 5px;
+}
+
+.btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--color-mint);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-mint);
+  color: var(--color-obsidian);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-sage);
+  border-color: var(--color-sage);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-mint);
+}
+
+.btn-ghost:hover {
+  background-color: rgba(196, 232, 219, 0.12);
+}
+
+.btn-danger {
+  background: transparent;
+  color: #e8a598;
+  border-color: #e8a598;
+}
+
+.btn-danger:hover {
+  background-color: rgba(232, 165, 152, 0.15);
+}
+
+.projects-empty {
+  font-size: 15px;
+  color: var(--color-sage);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Translucent cards let the page grid show through. */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(17, 12, 6, 0.42);
+  color: var(--color-mint);
+  border: 1px solid var(--grid-cross);
+  box-shadow: 0 16px 38px rgba(17, 12, 6, 0.32);
+  border-radius: 10px;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: var(--color-mint);
+  transform: translateY(-3px);
+}
+
+.project-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-sage) 0%,
+    var(--color-olive) 76%,
+    var(--color-umber) 76%,
+    var(--color-obsidian) 100%
+  );
+}
+
+.project-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--color-olive);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem 1rem;
+  flex: 1;
+}
+
+.project-card-title {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.project-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.project-card-tech li {
+  font-size: 12px;
+  letter-spacing: 0.9px;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  background-color: rgba(122, 112, 78, 0.35);
+  color: var(--color-mint);
+  border: 1px solid var(--grid-line);
+  border-radius: 999px;
+}
+
+.project-card-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-sage);
+}
+
+.project-card-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.project-card-links a {
+  color: var(--color-mint);
+}
+
+.project-card-actions {
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+
+.project-card-actions .btn{
+ border-radius: 5px;
+}
+
+.project-card .btn-ghost:hover {
+  background-color: rgba(196, 232, 219, 0.12);
+}
+
+@media (max-width: 900px) {
+  .projects-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-form-panel {
+    position: relative;
+    top: auto;
+  }
+}
