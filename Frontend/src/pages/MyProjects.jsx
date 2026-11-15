@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GridOverlay from '../components/GridOverlay';
 import ProjectForm from '../components/ProjectForm';
 import ProjectCard from '../components/ProjectCard';
+import { useAuth } from '../auth/useAuth';
 import '../styles/MyProjects.css';
 
 const STORAGE_KEY = 'myprojects.v1';
@@ -19,17 +20,19 @@ function loadProjects() {
 }
 
 export default function MyProjects() {
+  const { isAdmin } = useAuth();
   const [projects, setProjects] = useState(loadProjects);
   const [editingId, setEditingId] = useState(null);
 
-  // Whenever the list changes, write it back to localStorage.
+  // Only the admin can persist project changes.
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-  }, [projects]);
+    if (isAdmin) localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+  }, [projects, isAdmin]);
 
   const editing = projects.find((p) => p.id === editingId) ?? null;
 
   function handleSave(data) {
+    if (!isAdmin) return;
     if (editing) {
       setProjects((list) =>
         list.map((p) => (p.id === editing.id ? { ...p, ...data } : p))
@@ -41,6 +44,7 @@ export default function MyProjects() {
   }
 
   function handleDelete(id) {
+    if (!isAdmin) return;
     if (!window.confirm('Delete this project?')) return;
     setProjects((list) => list.filter((p) => p.id !== id));
     if (editingId === id) setEditingId(null);
@@ -57,26 +61,29 @@ export default function MyProjects() {
           <p className="projects-count">{projects.length} saved</p>
         </header>
 
-        <div className="projects-layout">
-          <section className="projects-form-panel" aria-label="Add or edit a project">
-            {/* key forces a fresh form whenever we switch between adding and editing */}
-            <ProjectForm
-              key={editing ? editing.id : 'new'}
-              initial={editing}
-              onSave={handleSave}
-              onCancel={() => setEditingId(null)}
-            />
-          </section>
+        <div className={`projects-layout ${isAdmin ? '' : 'projects-layout-readonly'}`}>
+          {isAdmin && (
+            <section className="projects-form-panel" aria-label="Add or edit a project">
+              {/* key forces a fresh form whenever we switch between adding and editing */}
+              <ProjectForm
+                key={editing ? editing.id : 'new'}
+                initial={editing}
+                onSave={handleSave}
+                onCancel={() => setEditingId(null)}
+              />
+            </section>
+          )}
 
           <section className="projects-list" aria-label="Project list">
             {projects.length === 0 && (
-              <p className="projects-empty">No projects yet. Add your first one.</p>
+              <p className="projects-empty">No projects yet.</p>
             )}
             <div className="projects-grid">
               {projects.map((project) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
+                  isAdmin={isAdmin}
                   onEdit={() => setEditingId(project.id)}
                   onDelete={() => handleDelete(project.id)}
                 />

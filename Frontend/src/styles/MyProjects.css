@@ -58,6 +58,10 @@
   align-items: start;
 }
 
+.projects-layout-readonly {
+  grid-template-columns: 1fr;
+}
+
 .projects-form-panel {
   position: sticky;
   top: 1.5rem;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GridOverlay from '../components/GridOverlay';
 import SocialLinks from '../components/SocialLinks';
 import Certifications from '../components/Certifications';
+import { useAuth } from '../auth/useAuth';
 import { skills as defaultSkills } from '../data/skills';
 import '../styles/About.css';
 import '../styles/SocialLinks.css';
@@ -35,6 +36,7 @@ function loadSkills() {
 }
 
 export default function About() {
+  const { isAdmin } = useAuth();
   // Array destructuring: useState returns [value, setter]. The starting category is 'frontend'.
   const [skillData, setSkillData] = useState(loadSkills);
   const [category, setCategory] = useState('frontend');
@@ -53,12 +55,14 @@ export default function About() {
   const destructuredNames = items.map(toVarName).join(', ');
 
   function startEditingSkills() {
+    if (!isAdmin) return;
     setSkillsDraft(JSON.stringify(skillData, null, 2));
     setSkillsError('');
     setIsEditingSkills(true);
   }
 
   function saveSkills() {
+    if (!isAdmin) return;
     let updatedSkills;
     try {
       updatedSkills = JSON.parse(skillsDraft);
@@ -105,7 +109,7 @@ export default function About() {
         <section className="about-panel" aria-label="Skills object">
           <div className="about-panel-heading">
             <h2 className="about-panel-title">const skills</h2>
-            {isEditingSkills ? (
+            {isAdmin && isEditingSkills ? (
               <div className="skills-editor-actions">
                 <button type="button" className="skills-editor-btn" onClick={saveSkills}>Save</button>
                 <button
@@ -119,13 +123,13 @@ export default function About() {
                   Cancel
                 </button>
               </div>
-            ) : (
+            ) : isAdmin ? (
               <button type="button" className="skills-editor-btn" onClick={startEditingSkills}>
                 Edit code
               </button>
-            )}
+            ) : null}
           </div>
-          {isEditingSkills ? (
+          {isAdmin && isEditingSkills ? (
             <textarea
               className="code-block skills-editor"
               aria-label="Edit skills JSON"

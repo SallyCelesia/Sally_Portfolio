@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from '../auth/useAuth';
 import '../styles/Certifications.css';
 
 const STORAGE_KEY = 'certifications.v1';
@@ -15,14 +16,15 @@ function loadCerts() {
 }
 
 export default function Certifications() {
+  const { isAdmin } = useAuth();
   const [certs, setCerts] = useState(loadCerts);
   const [form, setForm] = useState(EMPTY);
   // The id of the certification being edited, or null when adding.
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(certs));
-  }, [certs]);
+    if (isAdmin) localStorage.setItem(STORAGE_KEY, JSON.stringify(certs));
+  }, [certs, isAdmin]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -36,6 +38,7 @@ export default function Certifications() {
 
   function handleAdd(e) {
     e.preventDefault();
+    if (!isAdmin) return;
     const cert = {
       title: form.title.trim(),
       image: form.image.trim(),
@@ -51,11 +54,13 @@ export default function Certifications() {
   }
 
   function startEdit(cert) {
+    if (!isAdmin) return;
     setForm({ title: cert.title, image: cert.image, link: cert.link });
     setEditingId(cert.id);
   }
 
   function handleDelete(id) {
+    if (!isAdmin) return;
     if (!window.confirm('Delete this certification?')) return;
     setCerts((list) => list.filter((c) => c.id !== id));
     if (editingId === id) resetForm();
@@ -86,15 +91,17 @@ export default function Certifications() {
                 </a>
               )}
             </div>
-            <div className="cert-card-actions">
-              <button type="button" className="cert-btn" onClick={() => startEdit(cert)}>Edit</button>
-              <button type="button" className="cert-btn cert-btn-danger" onClick={() => handleDelete(cert.id)}>Delete</button>
-            </div>
+            {isAdmin && (
+              <div className="cert-card-actions">
+                <button type="button" className="cert-btn" onClick={() => startEdit(cert)}>Edit</button>
+                <button type="button" className="cert-btn cert-btn-danger" onClick={() => handleDelete(cert.id)}>Delete</button>
+              </div>
+            )}
           </li>
         ))}
       </ul>
 
-      <form className="cert-form" onSubmit={handleAdd}>
+      {isAdmin && <form className="cert-form" onSubmit={handleAdd}>
         <label className="cert-field">
           <span>Title</span>
           <input name="title" value={form.title} onChange={handleChange} required />
@@ -118,7 +125,7 @@ export default function Certifications() {
             <button type="submit" className="cert-btn cert-btn-primary">Add certification</button>
           )}
         </div>
-      </form>
+      </form>}
     </section>
   );
 }

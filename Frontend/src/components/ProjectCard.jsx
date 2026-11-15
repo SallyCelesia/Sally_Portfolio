@@ -1,4 +1,4 @@
-export default function ProjectCard({ project, onEdit, onDelete }) {
+export default function ProjectCard({ project, onEdit, onDelete, isAdmin }) {
   return (
     <article className="project-card">
       {project.image ? (
@@ -29,10 +29,12 @@ export default function ProjectCard({ project, onEdit, onDelete }) {
           )}
         </div>
 
-        <div className="project-card-actions">
-          <button type="button" className="btn btn-ghost" onClick={onEdit}>Edit</button>
-          <button type="button" className="btn btn-danger" onClick={onDelete}>Delete</button>
-        </div>
+        {isAdmin && (
+          <div className="project-card-actions">
+            <button type="button" className="btn btn-ghost" onClick={onEdit}>Edit</button>
+            <button type="button" className="btn btn-danger" onClick={onDelete}>Delete</button>
+          </div>
+        )}
       </div>
     </article>
   );
